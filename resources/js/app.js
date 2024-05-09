@@ -1,6 +1,8 @@
 import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import { InertiaProgress } from "@inertiajs/progress";
+
 
 createInertiaApp({
     resolve: name => {
@@ -12,4 +14,17 @@ createInertiaApp({
             .use(plugin)
             .mount(el)
     },
-})
+});
+
+InertiaProgress.init({
+    delay: 1000,
+
+    // The color of the progress bar.
+    color: '#dd2222',
+
+    // Whether to include the default NProgress styles.
+    includeCSS: true,
+
+    showSpinner: true,
+});
+
