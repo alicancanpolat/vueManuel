@@ -1,19 +1,12 @@
 <template>
-    <Layout :username="username" >
-        <h1 class="text-3xl">home {{ username }}</h1>
+    <Layout  >
+        <h1 class="text-3xl">home  </h1>
     </Layout>
 </template>
 
-<script>
+<script setup>
 
 import Layout from "../Shared/Layout.vue";
-export default {
-    components: {Layout},
-    props:{
-        username:String,
-    }
-}
-
 
 </script>
 
