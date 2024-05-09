@@ -1,6 +1,6 @@
 <template>
-    <Layout>
-        <h1 class="text-3xl">home</h1>
+    <Layout :username="username" >
+        <h1 class="text-3xl">home {{ username }}</h1>
     </Layout>
 </template>
 
@@ -8,7 +8,10 @@
 
 import Layout from "../Shared/Layout.vue";
 export default {
-    components: {Layout}
+    components: {Layout},
+    props:{
+        username:String,
+    }
 }
 
 
