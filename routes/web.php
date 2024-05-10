@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,10 +12,17 @@ Route::get('/', function () {
 
 Route::get('/users',function (){
    return Inertia('users',[
-       'users' => \App\Models\User::paginate(10)->through(fn($user) => [
-           'id' => $user->id,
-           'name' => $user->name
-       ])
+       'users' => \App\Models\User::query()
+           ->when(Request::input('search'),function ($query,$search){
+               $query->where('name','like',"%$search%");
+           })
+           ->paginate(10)
+           ->withQueryString()
+           ->through(fn($user) => [
+               'id' => $user->id,
+               'name' => $user->name
+           ]),
+       'filters' => Request::only(['search'])
    ]);
 });
 
