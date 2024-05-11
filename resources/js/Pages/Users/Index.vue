@@ -2,7 +2,11 @@
     <Head title="Users"></Head>
 
     <div class="flex justify-between mb-6">
-        <h1 class="text-3xl">Users</h1>
+        <div class="flex items-center">
+            <h1 class="text-3xl">Users</h1>
+            <Link href="/users/create" class="text-blue-500 text-sm ml-3">New User</Link>
+        </div>
+
         <input v-model='search' type="text" placeholder="Search.." class="border px-2 rounded-lg">
     </div>
 
@@ -32,9 +36,10 @@
 </template>
 
 <script setup>
-import Pagination from "../Shared/Pagination.vue";
+import Pagination from "../../Shared/Pagination.vue";
 import { ref,watch } from "vue";
 import { router } from "@inertiajs/vue3";
+import {throttle} from "lodash";
 
 let props = defineProps(
     {
@@ -43,9 +48,9 @@ let props = defineProps(
     }
 );
 let search = ref(props.filters.search);
-watch(search, value => {
+watch(search, throttle(function (value){
     router.get("/users", { search: value }, { preserveState: true, preserveScroll: true, replace: true });
-})
+},500));
 
 </script>
 
